@@ -37,7 +37,7 @@ const LikeButton: React.FC<LikeButtonProps> = (props) => {
       if (!userDataLoading && !userData?.exists())
         setDoc(userDataCollectionRef, { likedPosts: [] })
     })
-  }, [])
+  }, [auth])
 
   React.useEffect(() => {
     if (userData?.exists()) {
