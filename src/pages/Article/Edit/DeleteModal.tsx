@@ -17,7 +17,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ open, setOpen, id }) => {
   const postDoc = doc(db, 'posts', id as string).withConverter(postConverter)
 
   const handleConfirmCorrection = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value == 'i will delete this post') setIsConfirmCorrect(true)
+    if (e.target.value == 'I will delete this post') setIsConfirmCorrect(true)
     else setIsConfirmCorrect(false)
   }
 
@@ -42,7 +42,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ open, setOpen, id }) => {
           <Typography mb={1}>This action cannot be undone. Everything about this post will be deleted.</Typography>
           <Typography>
             Please type{' '}
-            <Typography fontWeight='bold' component='strong'>i will delete this post</Typography> to confirm
+            <Typography fontWeight='bold' component='strong'>I will delete this post</Typography> to confirm
           </Typography>
           <Stack spacing={1} mt={2}>
             <TextField size='small' onChange={handleConfirmCorrection} fullWidth />

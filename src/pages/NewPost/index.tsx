@@ -4,7 +4,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { auth, db } from '../../config/firebase'
 import MDEditor from '@uiw/react-md-editor'
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
-import { Post } from '../../models'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { postConverter } from '../../config/firebase/converter'
 
@@ -21,7 +20,8 @@ const NewPost: React.FC = () => {
     const postCollectionRef = collection(db, 'posts').withConverter(postConverter)
     const author = {
       displayName: user?.displayName as string,
-      uid: user?.uid as string
+      uid: user?.uid as string,
+      photoURL: user?.photoURL as string
     }
     const postedAt = Timestamp.fromDate(new Date())
 
@@ -31,6 +31,7 @@ const NewPost: React.FC = () => {
         content,
         postedAt,
         title,
+        likes: 0
       }).then(post => {
         navigate(`/post/${post.id}`)
       })

@@ -4,7 +4,8 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../config/firebase'
-import NavButton from './NavButton'
+import NavButton from '../StyledButton'
+import InfoAvatar from '../InfoAvatar'
 
 const AccountButton: React.FC = () => {
   const [user, loading, error] = useAuthState(auth)
@@ -34,12 +35,7 @@ const AccountButton: React.FC = () => {
         sx={{ p: .5 }}
         onClick={onAvatarOpen}
       >
-        <Avatar
-          alt={user.displayName as string}
-          src={user.photoURL as string}
-        >
-          {user.photoURL == null && user.displayName?.at(0)}
-        </Avatar>
+        <InfoAvatar displayname={user.displayName as string} photourl={user.photoURL as string} />
       </IconButton>
       <Menu
         id='avatar-menu'

@@ -1,14 +1,14 @@
 import { Timestamp } from "firebase/firestore"
 
-interface Post {
+export default interface Post {
   id?: string,
   title: string,
   content: string,
   postedAt: Timestamp,
+  likes?: number,
   author: {
     displayName: string,
+    photoURL?: string,
     uid: string
   },
 }
-
-export default Post

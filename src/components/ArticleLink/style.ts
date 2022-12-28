@@ -1,19 +1,27 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import {grey} from '@mui/material/colors'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const Desc = styled(Typography)`
+export const Desc = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  color: GrayText;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  max-height: 90px;
+  height: 6rem;
+
+  & .wmde-markdown {
+    color: grayText;
+  }
 `
 
 export const Container = styled(Box)`
-  padding: 1rem 0;
-  border-bottom: 1px solid lightgray;
+  padding: 1rem;
+  border: 1.45px solid ${grey[400]};
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: .5rem 0;
 
   & a {
     text-decoration: none;
@@ -22,4 +30,13 @@ export const Container = styled(Box)`
       font-weight: bold;
     }
   }
+
+  &:hover {
+    border-color: ${grey[600]};
+  }
+`
+
+export const DetailLink = styled(Link)`
+  width: 100%;
+  height: 100%;
 `

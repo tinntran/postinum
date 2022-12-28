@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Typography, Link as MUILink, IconButton, Stack } from '@mui/material'
+import { Box, Breadcrumbs, Typography, Link as MUILink, IconButton, Stack, Button } from '@mui/material'
 import MDEditor from '@uiw/react-md-editor'
 import { doc } from 'firebase/firestore'
 import moment from 'moment'
@@ -13,6 +13,9 @@ import NotFoundPage from '../../pages/NotFoundPage'
 import EditIcon from '@mui/icons-material/Edit';
 import { ArticleSkeleton } from '../../components/Skeletons'
 import Edit from './Edit'
+import InfoAvatar from '../../components/InfoAvatar'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import LikeButton from '../../components/LikeButton'
 
 const Article: React.FC & { Edit: React.FC } = () => {
   const { id } = useParams()
@@ -25,7 +28,7 @@ const Article: React.FC & { Edit: React.FC } = () => {
   )
 
   if (data?.exists()) {
-    const { id, title, content, author, postedAt } = data.data() as Post
+    const { id, title, content, likes, author, postedAt } = data.data() as Post
 
     return (
       <>
@@ -53,7 +56,27 @@ const Article: React.FC & { Edit: React.FC } = () => {
         <Typography component='div'>
           <MDEditor.Markdown source={content} />
         </Typography>
-        <Typography textAlign='end' fontWeight='bold' mt={6} mb={12}>{author.displayName}</Typography>
+        <Stack direction='row' mt={6} spacing={4}>
+          <Box display='inline-flex' alignItems='center'>
+            <InfoAvatar
+              sx={{ width: 64, height: 64 }}
+              displayname={author?.displayName as string}
+              photourl={author?.photoURL as string}
+            />
+            <Typography fontWeight='bold' ml={1}>{author.displayName}</Typography>
+          </Box>
+          <Box display='inline-flex' alignItems='center'>
+            {user
+              ? <LikeButton id={id} />
+              : <Box display='flex' flexDirection='column' alignItems='center'>
+                <IconButton disabled>
+                  <ThumbUpIcon color='action' />
+                </IconButton>
+                <Typography variant='caption' component='p'>{likes && likes}</Typography>
+              </Box>
+            }
+          </Box>
+        </Stack>
       </>
     )
   } else {

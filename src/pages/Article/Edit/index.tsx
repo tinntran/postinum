@@ -21,7 +21,13 @@ const Edit: React.FC = () => {
   const [data, loading] = useDocument(postDoc)
 
   const handleSubmit = async () => {
+    const prevData = data?.data() as Post
     setContent(content.trim())
+
+    if (title === prevData.title && content === prevData.content) {
+      setAlert('Nothing is changed.')
+      return
+    }
 
     if (title && content) {
       await setDoc(postDoc, {
@@ -31,6 +37,7 @@ const Edit: React.FC = () => {
       }).then(() => navigate(`/post/${data?.id}`))
     } else {
       setAlert('Title and content must be filled.')
+      return
     }
   }
 
