@@ -1,10 +1,10 @@
+import axios from 'axios'
 import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getAuth } from 'firebase/auth'
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 
-const firebaseConfig = await fetch('https://servtinum.onrender.com/firebase-config')
-  .then(res => res.json())
-  .then(data => data)
+const firebaseConfig = await axios.get('https://servtinum.onrender.com/firebase-config')
+  .then(res => res.data)
 
 const app = initializeApp(firebaseConfig)
 
